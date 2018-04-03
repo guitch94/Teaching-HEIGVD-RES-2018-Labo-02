@@ -2,7 +2,6 @@ package ch.heigvd.res.labs.roulette.net.client;
 
 import ch.heigvd.res.labs.roulette.data.EmptyStoreException;
 import ch.heigvd.res.labs.roulette.net.protocol.RouletteV2Protocol;
-import ch.heigvd.res.labs.roulette.net.client.IRouletteV2Client;
 import ch.heigvd.schoolpulse.TestAuthor;
 import org.junit.Rule;
 import org.junit.Test;
@@ -11,12 +10,11 @@ import org.junit.rules.ExpectedException;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 
 /**
  * This class contains automated tests to validate the client and the server
- * implementation of the Roulette Protocol (version 2)
+ * implementation of the Roulette Protocol (version 1)
  *
  * @author Labinot Rashiti
  * @author Romain Gallay
@@ -69,5 +67,30 @@ public class RouletteV2rlabinotTest {
 
     }
 
+    @Test
+    @TestAuthor(githubId = "rlabinot")
+    public void theClientShouldReturnTheNumberOfStudentsAdded() throws IOException, EmptyStoreException {
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
 
+        client.loadStudent("Pierre");
+        client.loadStudent("Paul");
+        client.loadStudent("Jacques");
+
+        assertEquals(3, client.getNumberOfStudentsAdded());
+    }
+
+    @Test
+    @TestAuthor(githubId = "rlabinot")
+    public void theClientShouldReturnTheNumberOfCommandsSent() throws IOException {
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+
+        String pierre = "Pierre";
+
+        client.loadStudent(pierre);
+        client.clearDataStore();
+        client.getProtocolVersion();
+
+        assertEquals(3, client.getNumberOfCommands());
+
+    }
 }
