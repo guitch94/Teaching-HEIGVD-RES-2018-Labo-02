@@ -91,7 +91,6 @@ public class RouletteV2AmadeousTest {
   @Test
   @TestAuthor(githubId = "amadeous")
   public void sendingInfoShouldReturnTheCorrectNumberOfStoredStudents() {
-
   }
 
   @Test
@@ -100,5 +99,5 @@ public class RouletteV2AmadeousTest {
   public void theServerShouldReturnTheCorrectVersionNumber() throws IOException {
     assertEquals(RouletteV2Protocol.VERSION, ((IRouletteV2Client)roulettePair.getClient()).getProtocolVersion());
   }
-  
+
 }
