@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author Rochat Antoine & Schopfer Benoit
  */
-public class RouletteV2Nooka10Test {
+public class RouletteV2OuzgagaTest {
 	
 	@Rule
 	public ExpectedException exception = ExpectedException.none();
