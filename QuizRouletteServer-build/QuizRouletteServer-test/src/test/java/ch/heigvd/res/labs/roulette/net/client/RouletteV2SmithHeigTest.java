@@ -1,5 +1,6 @@
 package ch.heigvd.res.labs.roulette.net.client;
-s
+
+
 import ch.heigvd.res.labs.roulette.data.Student;
 import ch.heigvd.res.labs.roulette.net.protocol.RouletteV2Protocol;
 import ch.heigvd.schoolpulse.TestAuthor;
@@ -66,7 +67,7 @@ public class RouletteV2SmithHeigTest {
         out.flush();
 
         String s = in.readLine();
-        assertEquals(s, "{\"status\":\"success\",\"nbCommands\":1}");
+        assertEquals(s, "{\"status\":\"success\",\"numberOfCommands\":1}");
     }
 
 }

@@ -116,13 +116,16 @@ public class RouletteV2Mantha32Test {
     output.println("Iando Rafid");
     output.println(RouletteV2Protocol.CMD_LOAD_ENDOFDATA_MARKER);
     output.flush();
-    
-    output.println(RouletteV2Protocol.VERSION);
+    input.readLine();
+
+    output.println(RouletteV2Protocol.CMD_INFO);
     output.flush();
-    
+    input.readLine();
+
     output.println(RouletteV2Protocol.CMD_BYE);
+    output.flush();
     String result = input.readLine();
 
-    assertEquals("{\"status\":\"success\",\"numberOfCommands\":4}", result);    
+    assertEquals("{\"status\":\"success\",\"numberOfCommands\":3}", result);
   }  
 }

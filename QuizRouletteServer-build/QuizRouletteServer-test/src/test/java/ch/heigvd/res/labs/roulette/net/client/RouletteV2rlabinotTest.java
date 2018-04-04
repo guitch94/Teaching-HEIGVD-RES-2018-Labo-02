@@ -63,7 +63,7 @@ public class RouletteV2rlabinotTest {
         client.loadStudent(paul);
 
         assertEquals(pierre, client.listStudents().get(0).getFullname());
-        assertEquals(pierre, client.listStudents().get(1).getFullname());
+        assertEquals(paul, client.listStudents().get(1).getFullname());
 
     }
 
@@ -76,7 +76,7 @@ public class RouletteV2rlabinotTest {
         client.loadStudent("Paul");
         client.loadStudent("Jacques");
 
-        assertEquals(3, client.getNumberOfStudentsAdded());
+        assertEquals(1, client.getNumberOfStudentAdded());
     }
 
     @Test

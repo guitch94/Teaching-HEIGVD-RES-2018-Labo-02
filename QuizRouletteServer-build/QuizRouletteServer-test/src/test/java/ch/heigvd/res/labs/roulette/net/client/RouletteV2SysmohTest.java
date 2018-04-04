@@ -67,12 +67,12 @@ public class RouletteV2SysmohTest {
         IRouletteV2Client client = getClient();
         client.connect("localhost", roulettePair.getServer().getPort());
 
-        assertEquals(client.getNumberOfCommands(), -1);
+        assertEquals(client.getNumberOfCommands(), 0);
 
         client.loadStudent("wallah");
         client.loadStudent("habdoulilah");
         client.getProtocolVersion();
-        client.getNumberOfStudentAdded();
+        client.getNumberOfStudents();
         client.disconnect();
 
         assertEquals(client.getNumberOfCommands(), 5);
