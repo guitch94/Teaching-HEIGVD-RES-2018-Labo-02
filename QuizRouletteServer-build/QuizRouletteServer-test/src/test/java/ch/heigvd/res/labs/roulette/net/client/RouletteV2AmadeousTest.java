@@ -78,12 +78,6 @@ public class RouletteV2AmadeousTest {
 
     @Test
     @TestAuthor(githubId = "amadeous")
-    public void sendingByeShouldBeSuccessful() {
-
-    }
-
-    @Test
-    @TestAuthor(githubId = "amadeous")
     public void sendingByeShouldReturnTheCorrectNumberOfSendCommands() throws IOException, EmptyStoreException {
         IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
         client.getNumberOfStudents();
@@ -97,26 +91,26 @@ public class RouletteV2AmadeousTest {
 
     @Test
     @TestAuthor(githubId = "amadeous")
-    public void sendingInfoShouldBeSuccessful() {
+    public void sendingInfoShouldReturnTheCorrectNumberOfStoredStudents() throws IOException {
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+        client.loadStudent("Test1");
+        client.loadStudent("Test2");
+        client.loadStudent("Test3");
 
-    }
-
-    @Test
-    @TestAuthor(githubId = "amadeous")
-    public void sendingInfoShouldReturnTheCorrectNumberOfStoredStudents() {
+        client
     }
 
     @Test
     @TestAuthor(githubId = "amadeous")
     // This is an adaptation of the same test for v1
     public void theServerShouldReturnTheCorrectVersionNumber() throws IOException {
-        assertEquals(RouletteV2Protocol.VERSION, ((IRouletteV2Client)roulettePair.getClient()).getProtocolVersion());
+        assertEquals(RouletteV2Protocol.VERSION, roulettePair.getClient().getProtocolVersion());
     }
 
     @Test
     @TestAuthor(githubId = "amadeous")
     public void theServerShouldReturnTheCorrectDefaultPort() throws IOException {
-        assertEquals(2613, RouletteV2Protocol.DEFAULT_PORT );
+        assertEquals(roulettePair.getServer().getPort(), RouletteV2Protocol.DEFAULT_PORT);
     }
 
 }
