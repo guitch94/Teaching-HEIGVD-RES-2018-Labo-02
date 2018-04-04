@@ -25,7 +25,7 @@ public class RouletteV2ManalitoTest {
     public EphemeralClientServerPair roulettePair = new EphemeralClientServerPair(RouletteV2Protocol.VERSION);
 
     @Test
-    @TestAuthor(githubId = {"manalito", "Nfluckiger"})
+    @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ClearShouldEraseAllStudents() throws IOException{
 
         int port = roulettePair.getServer().getPort();
@@ -42,14 +42,15 @@ public class RouletteV2ManalitoTest {
         assertTrue(client.listStudents().isEmpty());
 
     }
+    
     @Test
-    @TestAuthor(githubId = {"manalito", "Nfluckiger"})
+    @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServerShouldGiveRightVersion() throws IOException{
         assertEquals(RouletteV2Protocol.VERSION, roulettePair.getClient().getProtocolVersion());
     }
 
     @Test
-    @TestAuthor(githubId = {"manalito"})
+    @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServersShouldReturnTheRightListOfStudents() throws  IOException{
 
         int port = roulettePair.getServer().getPort();
@@ -69,7 +70,7 @@ public class RouletteV2ManalitoTest {
     }
     
     @Test
-    @TestAuthor(githubId = {"manalito"})
+    @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServersShouldReturnNumberOfStudentAdded() throws  IOException{
 
         IRouletteV2Client client = new RouletteV2ClientImpl();
@@ -81,28 +82,21 @@ public class RouletteV2ManalitoTest {
         students.add(new Student("TheLastOfTheStudents"));
         client.loadStudents(students);
     
-        int numberOfNewStuddents = client.getNumberOfAddedNewStudent();
+        int numberOfNewStuddents = client.getNumberOfStudentAdded();
         
         assertEquals(3, numberOfNewStuddents);
     }
     
     @Test
-    @TestAuthor(githubId = {"manalito"})
+    @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServersShouldReturnNumberOfCommandsTyped() throws  IOException{
-
-        int port = roulettePair.getServer().getPort();
         IRouletteV2Client client = new RouletteV2ClientImpl();
 
-        LinkedList<Student> students = new LinkedList<>();
-
-        students.add(new Student("Nathan"));
-        students.add(new Student("Aurelien"));
-        students.add(new Student("TheLastOfTheStudents"));
-
-        client.loadStudents(students);
+        client.loadStudent("Nathan");
         client.getProtocolVersion();
+        client.getNumberOfStudents();
         
-        assertEquals(client.getNumberOfCommands(), 2);
+        assertEquals(client.getNumberOfCommands(), 3);
     }
     
     
