@@ -79,7 +79,7 @@ public class RouletteV2AmadeousTest {
     @Test
     @TestAuthor(githubId = "amadeous")
     public void sendingByeShouldReturnTheCorrectNumberOfSendCommands() throws IOException, EmptyStoreException {
-        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+        IRouletteV2Client client = (IRouletteV2Client) roulettePair.getClient();
         client.getNumberOfStudents();
         client.getProtocolVersion();
         client.pickRandomStudent();
@@ -87,17 +87,6 @@ public class RouletteV2AmadeousTest {
 
         // Uses the additional method getNumberOfCommands as suggested in the RES 2018 - Annonces Telegram Channel
         assertEquals(4, client.getNumberOfCommands());
-    }
-
-    @Test
-    @TestAuthor(githubId = "amadeous")
-    public void sendingInfoShouldReturnTheCorrectNumberOfStoredStudents() throws IOException {
-        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
-        client.loadStudent("Test1");
-        client.loadStudent("Test2");
-        client.loadStudent("Test3");
-
-        client
     }
 
     @Test
