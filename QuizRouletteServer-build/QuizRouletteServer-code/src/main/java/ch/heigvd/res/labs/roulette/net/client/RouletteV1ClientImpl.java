@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  * This class implements the client side of the protocol specification (version 1).
- *
+ * 
  * @author Olivier Liechti
  */
 public class RouletteV1ClientImpl implements IRouletteV1Client {
@@ -64,7 +64,6 @@ public class RouletteV1ClientImpl implements IRouletteV1Client {
   public String getProtocolVersion() throws IOException {
     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
   }
-
 
 
 }
