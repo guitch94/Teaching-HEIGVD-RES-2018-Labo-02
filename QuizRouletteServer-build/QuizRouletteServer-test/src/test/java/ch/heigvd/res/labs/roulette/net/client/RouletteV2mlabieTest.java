@@ -93,7 +93,7 @@ public class RouletteV2mlabieTest {
     client.loadStudent("fabienne");
     students = client.listStudents();
     assertEquals(3, students.size());
-    assertEquals("{\"students\":[{\"fullname\":\"sacha\"},{\"fullname\":\"olivier\"},{\"fullname\":\"fabienne\"}]}",
+    assertEquals("[{\"fullname\":\"sacha\"},{\"fullname\":\"olivier\"},{\"fullname\":\"fabienne\"}]",
               JsonObjectMapper.toJson(students));
   }
 
@@ -107,8 +107,10 @@ public class RouletteV2mlabieTest {
     students.add(new Student("sacha"));
     students.add(new Student("olivier"));
     students.add(new Student("fabienne"));
-    int nbrOfLoad = client.loadStudents(students);
-    assertEquals(5, nbrOfLoad);
+    //int nbrOfLoad = client.loadStudents(students);
+    client.loadStudents(students);
+    int nbrOfLoad = client.getNumberOfStudentAdded();
+    assertEquals(3, nbrOfLoad);
   }
 
   @Test
@@ -118,12 +120,15 @@ public class RouletteV2mlabieTest {
     IRouletteV2Client client = new RouletteV2ClientImpl();
     client.connect("localhost", port);
     client.loadStudent("sacha");
-    exception.expect(EmptyStoreException.class);
-    client.getNumberOfStudents();
-    client.pickRandomStudent();
     client.listStudents();
+    client.getNumberOfStudents();
+
     client.clearDataStore();
-    int nbrOfCommand = client.disconnect();
+    exception.expect(EmptyStoreException.class);
+    client.pickRandomStudent();
+    //int nbrOfCommand = client.disconnect();
+    client.disconnect();
+    int nbrOfCommand = client.getNumberOfCommands();
     assertEquals(5, nbrOfCommand);
   }
 }

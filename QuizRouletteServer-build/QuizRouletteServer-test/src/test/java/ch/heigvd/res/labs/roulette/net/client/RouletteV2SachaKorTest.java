@@ -89,5 +89,6 @@ public class RouletteV2SachaKorTest {
     IRouletteV2Client client = new RouletteV2ClientImpl();
     client.connect("localhost", server.getPort());
     assertTrue(client.isConnected());
+    server.stopServer();
   }
 }

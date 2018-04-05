@@ -72,7 +72,8 @@ public class RouletteV2NortalleTest {
         client.loadStudent("Julien Biefer");
         client.loadStudent("Johanna Melly");
 
-        assertEquals(2, client.getNumberOfStudentAdded());
+        assertEquals(2, client.getNumberOfStudents()); // clients on the server
+        assertEquals(1, client.getNumberOfStudentAdded()); // clients added in the last LOAD command
     }
 
     @Test

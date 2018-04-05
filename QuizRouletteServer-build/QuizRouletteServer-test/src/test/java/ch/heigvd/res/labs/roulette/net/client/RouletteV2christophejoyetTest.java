@@ -124,7 +124,7 @@ public class RouletteV2christophejoyetTest {
         client.loadStudent("olivier");
         client.loadStudent("ambert");
         LinkedList<Student> listOfStudent = new LinkedList<Student>();
-        listOfStudent.add(new Student("oliver"));
+        listOfStudent.add(new Student("olivier"));
         listOfStudent.add(new Student("ambert"));
         assertEquals(listOfStudent, client.listStudents());
     }

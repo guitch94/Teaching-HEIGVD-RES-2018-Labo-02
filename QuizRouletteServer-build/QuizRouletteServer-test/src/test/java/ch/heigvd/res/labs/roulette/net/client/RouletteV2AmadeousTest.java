@@ -44,8 +44,8 @@ public class RouletteV2AmadeousTest {
         client.loadStudent("Test3");
 
         assertEquals("Test1", client.listStudents().get(0).getFullname());
-        assertEquals("Test2", client.listStudents().get(0).getFullname());
-        assertEquals("Test3", client.listStudents().get(0).getFullname());
+        assertEquals("Test2", client.listStudents().get(1).getFullname());
+        assertEquals("Test3", client.listStudents().get(2).getFullname());
     }
 
     @Test
@@ -82,9 +82,15 @@ public class RouletteV2AmadeousTest {
         IRouletteV2Client client = (IRouletteV2Client) roulettePair.getClient();
         client.getNumberOfStudents();
         client.getProtocolVersion();
-        client.pickRandomStudent();
+        boolean exceptionThrown = false;
+        try {
+            client.pickRandomStudent();
+        } catch (EmptyStoreException e) {
+            exceptionThrown = true;
+        }
         client.disconnect();
 
+        assertTrue(exceptionThrown);
         // Uses the additional method getNumberOfCommands as suggested in the RES 2018 - Annonces Telegram Channel
         assertEquals(4, client.getNumberOfCommands());
     }
@@ -96,10 +102,13 @@ public class RouletteV2AmadeousTest {
         assertEquals(RouletteV2Protocol.VERSION, roulettePair.getClient().getProtocolVersion());
     }
 
+    /*
     @Test
     @TestAuthor(githubId = "amadeous")
     public void theServerShouldReturnTheCorrectDefaultPort() throws IOException {
+    // Not for the ephemeral pair!!
         assertEquals(roulettePair.getServer().getPort(), RouletteV2Protocol.DEFAULT_PORT);
     }
+    */
 
 }

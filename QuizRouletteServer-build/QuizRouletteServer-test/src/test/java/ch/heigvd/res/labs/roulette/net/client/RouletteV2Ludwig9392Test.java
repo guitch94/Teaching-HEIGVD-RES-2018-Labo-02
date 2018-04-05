@@ -29,13 +29,15 @@ public class RouletteV2Ludwig9392Test {
   
   @Rule
   public EphemeralClientServerPair roulettePair = new EphemeralClientServerPair(RouletteV2Protocol.VERSION);
-  
+
+  /*
   @Test
   @TestAuthor(githubId = "Ludwig9392")
   public void theTestRouletteServerShouldListenOnTheCorrectPort(){
     int port = roulettePair.getServer().getPort();
     assertEquals(2613,port);
   }
+  */
   
   @Test
   @TestAuthor(githubId = "Ludwig9392")
@@ -50,7 +52,8 @@ public class RouletteV2Ludwig9392Test {
     roulettePair.getClient().loadStudent("Dejvid");
     roulettePair.getClient().loadStudent("Adam");
     assertEquals(3, roulettePair.getClient().getNumberOfStudents());
-    roulettePair.getClient().clearAllData();
+    IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+    client.clearDataStore();
     assertEquals(0, roulettePair.getClient().getNumberOfStudents());
   }
   
@@ -58,14 +61,15 @@ public class RouletteV2Ludwig9392Test {
   @TestAuthor(githubId = "Ludwig9392")
   public void theClientShouldBeAbleToReturnTheCorrectNumberOfStudentAdded() throws IOException{
     roulettePair.getClient().loadStudent("Michel");
-    assertEquals(1, roulettePair.getClient().getNumberOfStudentAdded());
+    IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+    assertEquals(1, client.getNumberOfStudentAdded());
     
     List<Student> students = new ArrayList<Student>();
     students.add(new Student("Dejvid"));
     students.add(new Student("Loic"));
     students.add(new Student("Adam"));
     roulettePair.getClient().loadStudents(students);
-    assertEquals(3, roulettePair.getClient().getNumberOfStudentAdded());
+    assertEquals(3, client.getNumberOfStudentAdded());
     
   }
   
@@ -74,9 +78,10 @@ public class RouletteV2Ludwig9392Test {
   public void theClientShouldBeAbleToReturnTheCorrectNumberOfCommandsSent() throws IOException{
     roulettePair.getClient().loadStudent("Jean");
     roulettePair.getClient().loadStudent("Pierre");
-    roulettePair.getClient().clearAllData;
-    roulettePair.getClient().getListOfStudent();
-    assertEquals(4, roulettePair.getClient().getNumberOfCommands());
+    IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+    client.clearDataStore();
+    client.listStudents();
+    assertEquals(4, client.getNumberOfCommands());
   }
   
   @Test
@@ -86,10 +91,12 @@ public class RouletteV2Ludwig9392Test {
     roulettePair.getClient().loadStudent("Dejvid");
     roulettePair.getClient().loadStudent("Loic");
     roulettePair.getClient().loadStudent("Adam");
-    assertEquals("Michel", roulettePair.getClient().getStudentList().get(0).getFullName());
-    assertEquals("Dejvid", roulettePair.getClient().getStudentList().get(1).getFullName());
-    assertEquals("Loic", roulettePair.getClient().getStudentList().get(2).getFullName());
-    assertEquals("Adam", roulettePair.getClient().getStudentList().get(3).getFullName());
+    IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
+    List<Student> students = client.listStudents();
+    assertEquals("Michel", students.get(0).getFullname());
+    assertEquals("Dejvid", students.get(1).getFullname());
+    assertEquals("Loic", students.get(2).getFullname());
+    assertEquals("Adam", students.get(3).getFullname());
   }
   
 }

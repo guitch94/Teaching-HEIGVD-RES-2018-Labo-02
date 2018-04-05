@@ -81,6 +81,7 @@ public class RouletteV2LoyseKrugTest {
         // manually insert a new student
         out.println(RouletteV2Protocol.CMD_LOAD);
         out.flush();
+        in.readLine();
         out.println("Adrien Allemand");
         out.flush();
         out.println(RouletteV2Protocol.CMD_LOAD_ENDOFDATA_MARKER);
@@ -88,7 +89,7 @@ public class RouletteV2LoyseKrugTest {
 
         // read the server answer and check it
         String s = in.readLine();
-        assertEquals(s, "{\"status\":\"success\",\"numberOfNewStudents\":1}");
+        assertEquals("{\"status\":\"success\",\"numberOfNewStudents\":1}", s);
     }
 
 

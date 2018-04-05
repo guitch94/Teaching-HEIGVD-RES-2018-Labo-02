@@ -29,7 +29,7 @@ public class RouletteV2ManalitoTest {
     public void ClearShouldEraseAllStudents() throws IOException{
 
         int port = roulettePair.getServer().getPort();
-        IRouletteV2Client client = new RouletteV2ClientImpl();
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
 
         client.loadStudent("Fluckiger");
         client.loadStudent("Siu");
@@ -54,7 +54,7 @@ public class RouletteV2ManalitoTest {
     public void ServersShouldReturnTheRightListOfStudents() throws  IOException{
 
         int port = roulettePair.getServer().getPort();
-        IRouletteV2Client client = new RouletteV2ClientImpl();
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
 
         LinkedList<Student> students = new LinkedList<>();
 
@@ -73,7 +73,7 @@ public class RouletteV2ManalitoTest {
     @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServersShouldReturnNumberOfStudentAdded() throws  IOException{
 
-        IRouletteV2Client client = new RouletteV2ClientImpl();
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
 
         LinkedList<Student> students = new LinkedList<>();
 
@@ -90,7 +90,7 @@ public class RouletteV2ManalitoTest {
     @Test
     @TestAuthor(githubId = {"manalito", "nfluckiger"})
     public void ServersShouldReturnNumberOfCommandsTyped() throws  IOException{
-        IRouletteV2Client client = new RouletteV2ClientImpl();
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
 
         client.loadStudent("Nathan");
         client.getProtocolVersion();

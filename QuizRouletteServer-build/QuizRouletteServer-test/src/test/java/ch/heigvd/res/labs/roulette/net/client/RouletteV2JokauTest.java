@@ -116,14 +116,14 @@ public class RouletteV2JokauTest {
     @Test
     @TestAuthor(githubId = "jokau, loic-schurch")
     public void theServerShouldListStudents()  throws IOException{
-        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();;
+        IRouletteV2Client client = (IRouletteV2Client)roulettePair.getClient();
         client.loadStudent("sacha");
         client.loadStudent("olivier");
         client.loadStudent("fabienne");
         List<Student> student = client.listStudents();
-        assertEquals("sacha", student.get(0));
-        assertEquals("olivier", student.get(1));
-        assertEquals("fabienne", student.get(2));
+        assertEquals("sacha", student.get(0).getFullname());
+        assertEquals("olivier", student.get(1).getFullname());
+        assertEquals("fabienne", student.get(2).getFullname());
     }
 
     @Test
@@ -148,6 +148,6 @@ public class RouletteV2JokauTest {
         client.loadStudent("a");
         client.listStudents();
         client.clearDataStore();
-        assertEquals(3, client.getNumberOfStudentAdded());
+        assertEquals(3, client.getNumberOfCommands());
     }
 }

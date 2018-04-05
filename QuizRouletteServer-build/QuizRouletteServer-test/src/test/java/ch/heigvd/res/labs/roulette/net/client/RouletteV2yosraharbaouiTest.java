@@ -1,7 +1,6 @@
 package ch.heigvd.res.labs.roulette.net.client;
 
 import ch.heigvd.res.labs.roulette.net.protocol.RouletteV2Protocol;
-import ch.heigvd.schoolpulse.TestAuthor;
 import java.io.IOException;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -22,20 +21,17 @@ public class RouletteV2yosraharbaouiTest {
     public EphemeralClientServerPair roulettePair = new EphemeralClientServerPair(RouletteV2Protocol.VERSION);
     
     @Test
-    @TestAuthor(githubId = "yosra-harbaoui")
     public void theTestRouletteServerShouldRunDuringTests() throws IOException {
         assertTrue(roulettePair.getServer().isRunning());
     }
   
     @Test
-    @TestAuthor(githubId = "yosra-harbaoui")
     public void theServerListSouldBeEmptyAtSetup() throws IOException {
         IRouletteV2Client clientV2 = (IRouletteV2Client) roulettePair.getClient();
         assertTrue(clientV2.listStudents().isEmpty());
     }
        
     @Test
-    @TestAuthor(githubId = "yosra-harbaoui")
     public void theServerShouldGetTheNumberOfStudentsInTheStore() throws IOException {
         IRouletteV2Client clientV2 = (IRouletteV2Client) roulettePair.getClient();
         clientV2.loadStudent("Yosra");
@@ -45,7 +41,6 @@ public class RouletteV2yosraharbaouiTest {
     }  
     
     @Test
-    @TestAuthor(githubId = "yosra-harbaoui")
     public void theServerListShouldBeEmptyAfterClearDataStore() throws IOException {
         IRouletteV2Client clientV2 = (IRouletteV2Client) roulettePair.getClient();
         clientV2.loadStudent("Yosra");
