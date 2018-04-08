@@ -14,6 +14,8 @@ import java.util.logging.Level;
  * This class implements the client side of the protocol specification (version 2).
  *
  * @author Olivier Liechti
+ *
+ * 
  */
 public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRouletteV2Client {
 
@@ -43,7 +45,7 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
       numberOfCommands++;
         if(clientSocket.isConnected()) {
             out.println(RouletteV2Protocol.CMD_BYE);
-            successOfCommand = JsonObjectMapper.parseJson(br.readLine(), ByeCommandResponse.class).getStatus().equals(RouletteV2Protocol.etat = "success");
+         //   successOfCommand = JsonObjectMapper.parseJson(br.readLine(), ByeCommandResponse.class).getStatus().equals(RouletteV2Protocol.etat = "success");
             br.close();
             out.close();
             clientSocket.close();
@@ -52,22 +54,28 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
         }
     }
 
+
     public void loadStudent(String fullname) throws IOException {
         numberOfCommands++;
-        out.println(RouletteV1Protocol.CMD_LOAD);
+        out.println(RouletteV2Protocol.CMD_LOAD);
         br.readLine();
         out.println(fullname);
-        out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
+        out.println(RouletteV2Protocol.CMD_LOAD_ENDOFDATA_MARKER);
         br.readLine();
-
     }
 
-
     public void loadStudents(List<Student> students) throws IOException {
-      numberOfCommands++;
-     // out.println(RouletteV2Protocol.CMD_LOAD);
-      //successOfCommand = JsonObjectMapper.parseJson(br.readLine(),LoadCommandResponse.class).getStatus().equals(RouletteV2Protocol.etat = "success");
+        numberOfCommands++;
+        if(students != null) {
+            out.println(RouletteV1Protocol.CMD_LOAD);
+            br.readLine();
+            //Print every student
+            for (Student student : students)
+                out.println(student);
 
+            out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
+            br.readLine();
+        }
     }
 
     public Student pickRandomStudent() throws EmptyStoreException, IOException {
