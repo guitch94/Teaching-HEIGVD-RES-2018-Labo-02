@@ -31,7 +31,8 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
       numberOfCommands++;
       out.println(RouletteV2Protocol.CMD_LIST);
       out.flush();
-      return JsonObjectMapper.parseJson(br.readLine(), ListStudentCommandResponse.class).getStudents();
+      String reponse = br.readLine();
+      return JsonObjectMapper.parseJson(reponse, StudentsList.class).getStudents();
      }
 
   public int getNumberOfStudentAdded(){
