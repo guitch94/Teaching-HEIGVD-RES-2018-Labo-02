@@ -54,6 +54,7 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
     }
 
     public void loadStudent(String fullname) throws IOException {
+        numberOfCommands++;
         out.println(RouletteV1Protocol.CMD_LOAD);
         br.readLine();
         out.println(fullname);
@@ -63,6 +64,7 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
 
 
     public void loadStudents(List<Student> students) throws IOException {
+      numberOfCommands++;
         if(students != null) {
             out.println(RouletteV1Protocol.CMD_LOAD);
             br.readLine();
