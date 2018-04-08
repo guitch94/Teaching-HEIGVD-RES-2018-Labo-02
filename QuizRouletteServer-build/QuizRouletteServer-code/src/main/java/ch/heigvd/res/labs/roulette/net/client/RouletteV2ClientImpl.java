@@ -1,11 +1,16 @@
 package ch.heigvd.res.labs.roulette.net.client;
 
+import ch.heigvd.res.labs.roulette.data.EmptyStoreException;
 import ch.heigvd.res.labs.roulette.data.JsonObjectMapper;
 import ch.heigvd.res.labs.roulette.data.Student;
 import ch.heigvd.res.labs.roulette.data.StudentsList;
+import ch.heigvd.res.labs.roulette.net.protocol.InfoCommandResponse;
+import ch.heigvd.res.labs.roulette.net.protocol.RandomCommandResponse;
+import ch.heigvd.res.labs.roulette.net.protocol.RouletteV1Protocol;
 import ch.heigvd.res.labs.roulette.net.protocol.RouletteV2Protocol;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * This class implements the client side of the protocol specification (version 2).
@@ -20,9 +25,9 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
 
   @Override
   public void clearDataStore() throws IOException {
+      numberOfCommands++;
       out.println(RouletteV2Protocol.CMD_CLEAR);
       out.flush();
-      numberOfCommands++;
       br.readLine();
      }
 
@@ -34,6 +39,57 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
       String reponse = br.readLine();
       return JsonObjectMapper.parseJson(reponse, StudentsList.class).getStudents();
      }
+
+
+    public void disconnect() throws IOException {
+      numberOfCommands++;
+        if(clientSocket.isConnected()) {
+            out.println(RouletteV2Protocol.CMD_BYE);
+            br.close();
+            out.close();
+            clientSocket.close();
+        } else{
+            LOG.log(Level.WARNING, "Client is already disconnected!");
+        }
+    }
+
+    public void loadStudent(String fullname) throws IOException {
+        out.println(RouletteV1Protocol.CMD_LOAD);
+        br.readLine();
+        out.println(fullname);
+        out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
+        br.readLine();
+    }
+
+
+    public void loadStudents(List<Student> students) throws IOException {
+        if(students != null) {
+            out.println(RouletteV1Protocol.CMD_LOAD);
+            br.readLine();
+            //Print every student
+            for (Student student : students)
+                out.println(student);
+
+            out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
+            br.readLine();
+        }
+    }
+
+    public Student pickRandomStudent() throws EmptyStoreException, IOException {
+        numberOfCommands++;
+        return super.pickRandomStudent();
+    }
+
+    public int getNumberOfStudents() throws IOException {
+        numberOfCommands++;
+        return super.getNumberOfStudents();
+    }
+
+    public String getProtocolVersion() throws IOException {
+        numberOfCommands++;
+        return super.getProtocolVersion();
+    }
+
 
   public int getNumberOfStudentAdded(){
     return numberOfStudentAdded;
