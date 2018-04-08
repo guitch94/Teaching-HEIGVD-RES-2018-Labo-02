@@ -4,10 +4,8 @@ import ch.heigvd.res.labs.roulette.data.EmptyStoreException;
 import ch.heigvd.res.labs.roulette.data.JsonObjectMapper;
 import ch.heigvd.res.labs.roulette.data.Student;
 import ch.heigvd.res.labs.roulette.data.StudentsList;
-import ch.heigvd.res.labs.roulette.net.protocol.InfoCommandResponse;
-import ch.heigvd.res.labs.roulette.net.protocol.RandomCommandResponse;
-import ch.heigvd.res.labs.roulette.net.protocol.RouletteV1Protocol;
-import ch.heigvd.res.labs.roulette.net.protocol.RouletteV2Protocol;
+import ch.heigvd.res.labs.roulette.net.protocol.*;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,6 +43,7 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
       numberOfCommands++;
         if(clientSocket.isConnected()) {
             out.println(RouletteV2Protocol.CMD_BYE);
+            successOfCommand = JsonObjectMapper.parseJson(br.readLine(), ByeCommandResponse.class).getStatus().equals(RouletteV2Protocol.etat = "success");
             br.close();
             out.close();
             clientSocket.close();
@@ -60,21 +59,15 @@ public class RouletteV2ClientImpl extends RouletteV1ClientImpl implements IRoule
         out.println(fullname);
         out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
         br.readLine();
+
     }
 
 
     public void loadStudents(List<Student> students) throws IOException {
       numberOfCommands++;
-        if(students != null) {
-            out.println(RouletteV1Protocol.CMD_LOAD);
-            br.readLine();
-            //Print every student
-            for (Student student : students)
-                out.println(student);
+     // out.println(RouletteV2Protocol.CMD_LOAD);
+      //successOfCommand = JsonObjectMapper.parseJson(br.readLine(),LoadCommandResponse.class).getStatus().equals(RouletteV2Protocol.etat = "success");
 
-            out.println(RouletteV1Protocol.CMD_LOAD_ENDOFDATA_MARKER);
-            br.readLine();
-        }
     }
 
     public Student pickRandomStudent() throws EmptyStoreException, IOException {
